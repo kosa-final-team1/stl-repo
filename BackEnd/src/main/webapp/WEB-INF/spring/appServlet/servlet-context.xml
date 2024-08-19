@@ -12,11 +12,6 @@
 	<!-- Spring MVC @Controller 프로그래밍 모델을 활성화 -->
 	<annotation-driven />
 
-	<!-- /resources/**로 시작하는 HTTP GET 요청을 처리하고, ${webappRoot}/resources 디렉토리에서 정적 리소스를 효율적으로 제공합니다 -->
-	<resources mapping="/resources/**" location="/resources/" />
-	<resources mapping="/upload/**" location="/upload/" />
-	<resources mapping="/images/**" location="/resources/images/" />
-
 	<!-- 컨트롤러에서 선택된 뷰를 /WEB-INF/views 디렉토리의 .jsp 리소스로 해석 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/file/" />
@@ -25,11 +20,6 @@
 
 	<!-- 컴포넌트 스캔: Spring이 컨트롤러, 서비스 등을 자동으로 등록 -->
 	<context:component-scan base-package="com.example.myapp" />
-
-	<!-- 파일 업로드 설정 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="50000000"/>
-	</beans:bean>
 
 	<!-- 예외 처리 -->
 	<beans:bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">

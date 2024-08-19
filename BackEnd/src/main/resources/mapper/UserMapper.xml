@@ -10,21 +10,22 @@
             user_pw AS userPw,
             gender,
             age,
-            pref_type AS prefType
-        FROM user
+            style_no AS styleNo
+        FROM USER
         WHERE
             user_id = #{userId}
+          AND user_pw = #{userPw}
     </select>
 
     <!-- 새로운 User를 등록하는 쿼리 -->
     <insert id="signUpUser" parameterType="com.example.myapp.user.model.User">
-        INSERT INTO user
+        INSERT INTO USER
         (
             user_id,
             user_pw,
             gender,
             age,
-            pref_type
+            style_no
         )
         VALUES
             (
@@ -32,7 +33,7 @@
                 #{userPw},
                 #{gender},
                 #{age},
-                #{prefType, jdbcType=VARCHAR}
+                #{styleNo}
             )
     </insert>
 
@@ -40,20 +41,22 @@
     <select id="getUserId" parameterType="String" resultType="int">
         SELECT
             COUNT(*)
-        FROM user
+        FROM USER
         WHERE
             user_id = #{userId}
     </select>
 
-    <!-- 비밀번호와 선호 유형을 업데이트하는 쿼리 -->
+    <!-- 비밀번호와 스타일 번호를 업데이트하는 쿼리 -->
     <update id="updateUser" parameterType="com.example.myapp.user.model.User">
-        UPDATE user
+        UPDATE USER
         SET user_pw = #{userPw},
-            pref_type = #{prefType}
+            style_no = #{styleNo}
         WHERE user_id = #{userId}
     </update>
 
+    <!-- 사용자를 삭제하는 쿼리 -->
     <delete id="deleteUser" parameterType="String">
-        DELETE FROM user WHERE user_id = #{userId}
+        DELETE FROM USER WHERE user_id = #{userId}
     </delete>
+
 </mapper>

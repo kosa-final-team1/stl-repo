@@ -47,6 +47,10 @@
             <input type="hidden" id="deletePw" name="userPw">
             <button type="button" class="btn delete-btn" onclick="confirmDelete()">Delete</button>
         </form>
+        <!-- 로그아웃 버튼 추가 -->
+        <form action="/user/logout" method="get" style="display:inline;">
+            <button type="submit" class="btn logout-btn">Logout</button>
+        </form>
     </div>
 </div>
 

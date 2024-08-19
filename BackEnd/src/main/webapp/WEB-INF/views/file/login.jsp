@@ -5,29 +5,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <!-- CSS 파일을 불러오는 부분 -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/login.css">
+    <title>StyleSync - 로그인</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/login.css?v=1.0">
 </head>
 <body>
-<div class="container">
-    <div class="form_area">
-        <p class="title">LOGIN</p>
-        <form action="/user/login" method="post">
-            <div class="form_group">
-                <label class="sub_title" for="userId">User ID</label>
-                <input placeholder="Enter your User ID" id="userId" name="userId" class="form_style" type="text" required>
+<header>
+    <div class="container">
+        <div class="logo">StyleSync</div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <form class="signup-form" action="${pageContext.request.contextPath}/user/login" method="post">
+            <h2 class="form-title">로그인</h2>
+            <div class="form-group">
+                <label for="userId">아이디</label>
+                <input type="text" id="userId" name="userId" required>
+                <c:if test="${not empty errors.userId}">
+                    <div class="error">${errors.userId}</div>
+                </c:if>
             </div>
-            <div class="form_group">
-                <label class="sub_title" for="userPw">Password</label>
-                <input placeholder="Enter your password" id="userPw" name="userPw" class="form_style" type="password" required>
+            <div class="form-group">
+                <label for="userPw">비밀번호</label>
+                <input type="password" id="userPw" name="userPw" required>
+                <c:if test="${not empty errors.userPw}">
+                    <div class="error">${errors.userPw}</div>
+                </c:if>
             </div>
-            <div>
-                <button type="submit" class="btn">LOGIN</button>
-                <p>Don't have an Account? <a class="link" href="/user/signup">Sign Up Here!</a></p>
-            </div>
+            <button type="submit" class="submit-btn">로그인</button>
         </form>
     </div>
-</div>
+</main>
+
 </body>
 </html>
