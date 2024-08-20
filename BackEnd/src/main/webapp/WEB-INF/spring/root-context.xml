@@ -15,9 +15,9 @@
 	<!-- 데이터베이스 연결 설정 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.mariadb.jdbc.Driver" />
-		<property name="url" value="jdbc:mariadb://localhost:3306/Fashion" />
+		<property name="url" value="jdbc:mariadb://ec2-13-124-25-225.ap-northeast-2.compute.amazonaws.com:3306/Fashion" />
 		<property name="username" value="root" />
-		<property name="password" value="12345" />
+		<property name="password" value="jiu32gr913uw9" />
 	</bean>
 
 	<!-- JdbcTemplate -->
