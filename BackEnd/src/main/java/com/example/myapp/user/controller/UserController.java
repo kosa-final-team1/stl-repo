@@ -221,7 +221,7 @@ public class UserController {
         User user = userService.getUser(sessionUserId, userPw);
 
         if (user != null) {
-            boolean isDeleteSuccessful = userService.deleteUser(sessionUserId);
+            boolean isDeleteSuccessful = userService.delet  eUser(sessionUserId);
             if (isDeleteSuccessful) {
                 session.invalidate();
                 redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");

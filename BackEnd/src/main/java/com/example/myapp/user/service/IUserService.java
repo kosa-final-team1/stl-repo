@@ -9,5 +9,5 @@ public interface IUserService {
     int getUserId(String userId);
     boolean updateUser(User user);
     boolean deleteUser(String userId);
-
+    boolean updatePassword(String userId, String currentPassword, String newPassword);
 }

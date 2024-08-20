@@ -47,4 +47,14 @@ public class UserService implements IUserService {
         return userRepository.deleteUser(userId) > 0;
     }
 
+    @Override
+    @Transactional
+    public boolean updatePassword(String userId, String currentPassword, String newPassword) {
+        User user = getUser(userId, currentPassword);
+        if (user != null) {
+            user.setUserPw(newPassword); // 새 비밀번호로 설정
+            return updateUser(user); // updateUser 메서드를 통해 업데이트 수행
+        }
+        return false; // 현재 비밀번호가 맞지 않으면 false 반환
+    }
 }
