@@ -133,7 +133,7 @@ public class UserController {
                         logger.info(">>> 새로운 세션 userId: " + session.getAttribute("userId"));
                         logger.info(">>> 새로운 세션 userPw: " + session.getAttribute("userPw"));
 
-                        return "redirect:/user/mypage";
+                        return "home";
                     } else {
                         logger.info(">>>> 비밀번호 안 맞음");
                         redirectAttr.addFlashAttribute("message", "비밀번호가 맞지 않습니다.");
@@ -221,7 +221,7 @@ public class UserController {
         User user = userService.getUser(sessionUserId, userPw);
 
         if (user != null) {
-            boolean isDeleteSuccessful = userService.delet  eUser(sessionUserId);
+            boolean isDeleteSuccessful = userService.deleteUser(sessionUserId);
             if (isDeleteSuccessful) {
                 session.invalidate();
                 redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");

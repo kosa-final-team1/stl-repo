@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myapp.product.dao.IProductRepository">
+    <select id="findProductsByOutfit" resultType="com.example.myapp.product.model.Product">
+        SELECT p.product_url AS productUrl,
+               p.product_brand AS productBrand,
+               p.product_name AS productName,
+               p.product_price AS productPrice
+        FROM PRODUCT p
+                 JOIN OUTFIT o ON p.outfit_url = o.outfit_url AND p.style_idx = o.style_idx
+        WHERE o.weather_no = #{weatherNo} AND o.style_no = #{styleNo} AND o.style_idx = #{styleIdx};
+    </select>
+</mapper>

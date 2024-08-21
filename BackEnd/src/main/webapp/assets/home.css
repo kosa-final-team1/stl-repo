@@ -37,7 +37,7 @@ header {
 
 header.scrolled {
     background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 nav {
@@ -73,7 +73,7 @@ nav ul li a:hover {
 }
 
 .hero {
-    height: 100vh;
+    min-height: calc(100vh - 80px);
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
@@ -110,7 +110,7 @@ nav ul li a:hover {
 
 .cta-button:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .section {
@@ -124,6 +124,43 @@ nav ul li a:hover {
     color: var(--primary-color);
 }
 
+.filter-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.filter-container select {
+    margin: 0 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.outfit-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 각 줄에 5개의 이미지 */
+    column-gap: 5px; /* 좌우 간격을 5px로 설정 */
+    row-gap: 10px; /* 상하 간격을 10px로 설정 */
+    margin: 20px 0;
+}
+
+.outfit-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.outfit-item img {
+    width: 250px;  /* 이미지의 너비를 약간 줄여 198px로 설정 */
+    height: 400px; /* 이미지의 높이를 300px로 유지 */
+    object-fit: cover; /* 이미지를 198x300 크기에 맞추어 비율을 유지하며 자름 */
+    border-radius: 8px;
+    display: block;
+}
+
 .feature-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -134,7 +171,7 @@ nav ul li a:hover {
     background-color: white;
     border-radius: 10px;
     padding: 30px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -173,5 +210,15 @@ footer {
 
     nav ul {
         display: none;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .filter-container select {
+        margin: 10px 0;
+        width: 80%;
     }
 }

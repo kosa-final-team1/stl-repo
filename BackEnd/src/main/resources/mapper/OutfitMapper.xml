@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.myapp.outfit.dao.IOutfitRepository">
+
+    <select id="getRandomOutfits" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT
+            outfit_url AS outfitUrl,
+            style_idx AS styleIdx,
+            style_url AS styleUrl,
+            outfit_info AS outfitInfo,
+            style_tags AS styleTags,
+            weather_no AS weatherNo,
+            style_no AS styleNo
+        FROM OUTFIT
+        ORDER BY RAND()
+            LIMIT 10
+    </select>
+
+    <select id="getOutfitDetails" parameterType="map" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT
+            outfit_url AS outfitUrl,
+            style_idx AS styleIdx,
+            style_url AS styleUrl,
+            outfit_info AS outfitInfo,
+            style_tags AS styleTags,
+            weather_no AS weatherNo,
+            style_no AS styleNo
+        FROM OUTFIT
+        WHERE weather_no = #{weatherNo} AND style_no = #{styleNo} AND style_idx = #{styleIdx}
+    </select>
+
+</mapper>
