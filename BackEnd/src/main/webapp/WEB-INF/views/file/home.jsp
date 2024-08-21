@@ -49,6 +49,19 @@
         </div>
     </section>
 
+    <section id="outfit-section">
+        <h2 class="section-title">StyleSync가 추천하는 코디</h2>
+        <div class="outfit-grid">
+            <c:forEach var="outfit" items="${outfits}">
+                <div class="outfit-item">
+                    <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
+                        <img src="${outfit.outfitUrl}" alt="Outfit Image">
+                    </a>
+                </div>
+            </c:forEach>
+        </div>
+    </section>
+
     <section id="features" class="section">
         <div class="container">
             <h2 class="section-title">StyleSync의 특별한 기능</h2>

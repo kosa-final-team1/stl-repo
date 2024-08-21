@@ -25,8 +25,8 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 사용자 빈 -->
-	<context:component-scan base-package="com.example.myapp.user.service, com.example.myapp.user.dao"/>
+	<!-- 사용자 빈 스캔 -->
+	<context:component-scan base-package="com.example.myapp"/>
 
 	<!-- 트랜잭션 매니저 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -37,7 +37,7 @@
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<!-- MyBatis 설정 -->
-	<mybatis-spring:scan base-package="com.example.myapp.user.dao"/>
+	<mybatis-spring:scan base-package="com.example.myapp"/>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"/>
