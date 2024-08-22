@@ -133,7 +133,8 @@ public class UserController {
                         logger.info(">>> 새로운 세션 userId: " + session.getAttribute("userId"));
                         logger.info(">>> 새로운 세션 userPw: " + session.getAttribute("userPw"));
 
-                        return "home";
+                        // 로그인 성공 후 홈 페이지로 리다이렉트
+                        return "redirect:/";
                     } else {
                         logger.info(">>>> 비밀번호 안 맞음");
                         redirectAttr.addFlashAttribute("message", "비밀번호가 맞지 않습니다.");
@@ -158,7 +159,7 @@ public class UserController {
         redirectAttr.addFlashAttribute("message", "로그아웃 되었습니다.");
         session.invalidate();
         logger.info("로그아웃 되었습니다.");
-        return "home";
+        return "redirect:/";
     }
 
     // 마이페이지 표시
@@ -215,9 +216,9 @@ public class UserController {
 
     // 사용자 계정 삭제 처리 (회원 탈퇴)
     @PostMapping("/user/delete")
-    public String deleteUser(@RequestParam String userPw, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@RequestParam String userPw, HttpSession session,
+                             RedirectAttributes redirectAttributes) {
         String sessionUserId = (String) session.getAttribute("userId"); // 세션에서 userId 가져오기
-
         User user = userService.getUser(sessionUserId, userPw);
 
         if (user != null) {

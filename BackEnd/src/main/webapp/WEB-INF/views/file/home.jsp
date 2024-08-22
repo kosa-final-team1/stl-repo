@@ -19,6 +19,7 @@
                     <c:when test="${not empty sessionScope.userId}">
                         <!-- 로그인 상태: 로그아웃 버튼을 상단 네비게이션 바의 홈 버튼 왼쪽에 위치 -->
                         <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
+                        <li><a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a></li>
                     </c:when>
                 </c:choose>
                 <li><a href="#home">홈</a></li>
