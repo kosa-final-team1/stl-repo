@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <li><a href="${pageContext.request.contextPath}/home">홈</a></li>
-                <li><a href="${pageContext.request.contextPath}/recommend">코디 추천</a></li>
+                <li><a href="${pageContext.request.contextPath}/chatbot">패션 물어보기</a></li>
                 <li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
             </ul>
         </nav>
@@ -37,12 +37,14 @@
                 <div class="product-list">
                     <c:forEach var="product" items="${products}">
                         <div class="product-item">
-                            <img src="${product.productUrl}" alt="${product.productName}">
-                            <div class="product-details">
-                                <h3 class="product-name">${product.productName}</h3>
-                                <p class="product-brand">${product.productBrand}</p>
-                                <p class="product-price">${product.productPrice}원</p>
-                            </div>
+                            <a href="${pageContext.request.contextPath}/productbuy?productUrl=${product.productUrl}&productName=${product.productName}&productBrand=${product.productBrand}&productPrice=${product.productPrice}">
+                                <img src="${product.productUrl}" alt="${product.productName}">
+                                <div class="product-details">
+                                    <h3 class="product-name">${product.productName}</h3>
+                                    <p class="product-brand">${product.productBrand}</p>
+                                    <p class="product-price">${product.productPrice}</p>
+                                </div>
+                            </a>
                         </div>
                     </c:forEach>
                 </div>

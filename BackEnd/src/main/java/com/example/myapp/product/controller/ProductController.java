@@ -46,4 +46,20 @@ public class ProductController {
 
         return "outfitdetail";
     }
+
+    @GetMapping("/productbuy")
+    public String showProductBuy(@RequestParam("productUrl") String productUrl,
+                                 @RequestParam("productName") String productName,
+                                 @RequestParam("productBrand") String productBrand,
+                                 @RequestParam("productPrice") String productPrice,
+                                 Model model) {
+        // 모델에 상품 정보를 추가
+        model.addAttribute("productUrl", productUrl);
+        model.addAttribute("productName", productName);
+        model.addAttribute("productBrand", productBrand);
+        model.addAttribute("productPrice", productPrice);
+
+        // 구매 페이지로 이동
+        return "productbuy";
+    }
 }

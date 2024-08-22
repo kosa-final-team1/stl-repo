@@ -67,10 +67,10 @@
             </div>
             <input type="hidden" id="styleNo" name="styleNo" />
             <button type="submit" class="submit-btn">정보 수정</button>
+            <form action="${pageContext.request.contextPath}/user/delete" method="post" class="delete-form">
+                <button type="submit" class="delete-btn">회원 탈퇴</button>
+            </form>
         </form:form>
-        <form action="${pageContext.request.contextPath}/user/delete" method="post" class="delete-form">
-            <button type="submit" class="delete-btn">회원 탈퇴</button>
-        </form>
     </div>
 </main>
 
