@@ -5,6 +5,7 @@
 
 <mapper namespace="com.example.myapp.outfit.dao.IOutfitRepository">
 
+    <!-- 랜덤으로 코디 목록을 가져오는 쿼리 -->
     <select id="getRandomOutfits" resultType="com.example.myapp.outfit.model.Outfit">
         SELECT
             outfit_url AS outfitUrl,
@@ -19,6 +20,7 @@
             LIMIT 10
     </select>
 
+    <!-- 특정 코디의 세부 정보를 가져오는 쿼리 -->
     <select id="getOutfitDetails" parameterType="map" resultType="com.example.myapp.outfit.model.Outfit">
         SELECT
             outfit_url AS outfitUrl,

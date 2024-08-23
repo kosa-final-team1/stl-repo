@@ -10,12 +10,12 @@ import java.util.Map;
 public interface IUserRepository {
 
     // ID, PW로 USER 정보 조회하기
-    User getUser(@Param("user_id") String user_id, @Param("user_pw") String user_pw);
+    User getUser(@Param("userId") String userId, @Param("userPw") String userPw);
 
     // 회원가입
     boolean signUpUser(User user);
 
-    int getUserId(String user_id);
+    int getUserId(String userId);
 
     User getUser(Map<String, Object> params);
 

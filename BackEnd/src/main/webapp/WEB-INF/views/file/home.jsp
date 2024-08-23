@@ -13,18 +13,18 @@
 <header>
     <div class="container">
         <nav>
-            <div class="logo">StyleSync</div>
+            <div class="logo" >StyleSync</div>
             <ul>
                 <c:choose>
                     <c:when test="${not empty sessionScope.userId}">
-                        <!-- 로그인 상태: 로그아웃 버튼을 상단 네비게이션 바의 홈 버튼 왼쪽에 위치 -->
                         <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
                         <li><a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a></li>
                     </c:when>
                 </c:choose>
-                <li><a href="#home">홈</a></li>
+                <li><a href="${pageContext.request.contextPath}/">홈</a></li>
                 <li><a href="#features">기능</a></li>
                 <li><a href="#contact">문의</a></li>
+
             </ul>
         </nav>
     </div>
@@ -35,16 +35,13 @@
         <div class="hero-content">
             <h1>당신만의 스타일을<br>발견하세요</h1>
             <p>개인 맞춤 패션 큐레이션으로 당신의 스타일을 한 단계 업그레이드하세요.</p>
-            <!-- 로그인 상태에 따라 다른 버튼 표시 -->
             <c:choose>
                 <c:when test="${empty sessionScope.userId}">
-                    <!-- 비로그인 상태: 시작하기와 로그인 버튼 표시 -->
                     <a href="${pageContext.request.contextPath}/user/signup" class="cta-button">시작하기</a>
                     <a href="${pageContext.request.contextPath}/user/login" class="cta-button">로그인</a>
                 </c:when>
                 <c:when test="${not empty sessionScope.userId}">
-                    <!-- 로그인 상태: 챗봇 페이지로 연결되는 버튼 -->
-                    <a href="${pageContext.request.contextPath}/chatbot" class="cta-button">패션 물어보기</a>
+                    <a href="http://localhost:8501" class="cta-button">패션 물어보기</a>
                 </c:when>
             </c:choose>
         </div>

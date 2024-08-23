@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface IOutfitService {
     List<Outfit> getRandomOutfits();
-
     Outfit getOutfitDetails(String weatherNo, String styleNo, int styleIdx);
 }

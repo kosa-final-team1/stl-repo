@@ -14,5 +14,4 @@ public interface IOutfitRepository {
     Outfit getOutfitDetails(@Param("weatherNo") String weatherNo,
                             @Param("styleNo") String styleNo,
                             @Param("styleIdx") int styleIdx);
-
 }
