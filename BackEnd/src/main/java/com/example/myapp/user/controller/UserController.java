@@ -1,20 +1,23 @@
 package com.example.myapp.user.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
+import com.example.myapp.util.UserDataSend;
+import com.example.myapp.user.model.User;
+import com.example.myapp.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.myapp.user.model.User;
-import com.example.myapp.user.service.IUserService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -134,6 +137,8 @@ public class UserController {
                         logger.info(">>> 새로운 세션 userPw: " + session.getAttribute("userPw"));
 
                         // 로그인 성공 후 홈 페이지로 리다이렉트
+                        // 스트림릿 서버로 사용자 정보 전송
+                        sendUserInfoToStreamlit(session);
                         return "redirect:/";
                     } else {
                         logger.info(">>>> 비밀번호 안 맞음");
@@ -235,5 +240,29 @@ public class UserController {
             redirectAttributes.addFlashAttribute("message", "비밀번호가 일치하지 않습니다.");
             return "redirect:/user/mypage";
         }
+    }
+
+    // 세션에서 사용자 정보를 추출하는 메서드
+    public Map<String, String> getUserInfoFromSession(HttpSession session) {
+        Map<String, String> userInfo = new HashMap<>();
+        String userId = (String) session.getAttribute("userId");
+        String gender = (String) session.getAttribute("gender");
+        String age = (String) session.getAttribute("age");
+        String styleName = (String) session.getAttribute("styleName");
+
+        if (userId != null) {
+            userInfo.put("userId", userId);
+            userInfo.put("gender", gender);
+            userInfo.put("age", age);
+            userInfo.put("styleName", styleName);
+        }
+
+        return userInfo;
+    }
+
+    // streamlit
+    public void sendUserInfoToStreamlit(HttpSession session) {
+        Map<String, String> userInfo = getUserInfoFromSession(session);
+        UserDataSend.sendUserData(userInfo);
     }
 }

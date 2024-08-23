@@ -12,7 +12,7 @@
 <body>
 <header>
     <div class="container">
-        <div class="logo">StyleSync</div>
+        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">StyleSync</div>
     </div>
 </header>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,12 +13,12 @@
 <body>
 <header>
     <div class="container">
-        <div class="logo">StyleSync</div>
+        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">StyleSync</div>
         <nav>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/home">홈</a></li>
+                <li><a href="${pageContext.request.contextPath}/">홈</a></li>
                 <li><a href="${pageContext.request.contextPath}/chatbot">패션 물어보기</a></li>
-                <li><a href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
+                <li><a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a></li>
             </ul>
         </nav>
     </div>
@@ -37,7 +38,7 @@
                 <div class="product-list">
                     <c:forEach var="product" items="${products}">
                         <div class="product-item">
-                            <a href="${pageContext.request.contextPath}/productbuy?productUrl=${product.productUrl}&productName=${product.productName}&productBrand=${product.productBrand}&productPrice=${product.productPrice}">
+                            <a href="javascript:void(0);" onclick="redirectToProductPage('${fn:escapeXml(product.productUrl)}', '${fn:escapeXml(product.productName)}', '${fn:escapeXml(product.productBrand)}', '${fn:escapeXml(product.productPrice)}')">
                                 <img src="${product.productUrl}" alt="${product.productName}">
                                 <div class="product-details">
                                     <h3 class="product-name">${product.productName}</h3>
@@ -58,5 +59,22 @@
         <p>&copy; 2024 StyleSync. All rights reserved.</p>
     </div>
 </footer>
+
+<script>
+    function redirectToProductPage(productUrl, productName, productBrand, productPrice) {
+        // 모든 특수 문자를 포함한 문자열을 안전하게 인코딩
+        var encodedProductUrl = encodeURIComponent(productUrl);
+        var encodedProductName = encodeURIComponent(productName);
+        var encodedProductBrand = encodeURIComponent(productBrand);
+        var encodedProductPrice = encodeURIComponent(productPrice);
+
+        var url = '${pageContext.request.contextPath}/productbuy?productUrl=' + encodedProductUrl +
+            '&productName=' + encodedProductName +
+            '&productBrand=' + encodedProductBrand +
+            '&productPrice=' + encodedProductPrice;
+
+        window.location.href = url;
+    }
+</script>
 </body>
 </html>

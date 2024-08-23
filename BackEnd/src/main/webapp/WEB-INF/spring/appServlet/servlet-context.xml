@@ -3,20 +3,24 @@
 			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			 xmlns:beans="http://www.springframework.org/schema/beans"
 			 xmlns:context="http://www.springframework.org/schema/context"
-			 xmlns:mvc="http://www.springframework.org/schema/c"
-			 xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-     http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-     http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+			 xmlns:mvc="http://www.springframework.org/schema/mvc"
+			 xsi:schemaLocation="
+                http://www.springframework.org/schema/mvc
+                https://www.springframework.org/schema/mvc/spring-mvc.xsd
+                http://www.springframework.org/schema/beans
+                https://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context
+                https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet 컨텍스트: 이 서블릿의 요청 처리 인프라를 정의합니다 -->
 
 	<!-- Spring MVC @Controller 프로그래밍 모델을 활성화 -->
-	<annotation-driven />
+	<mvc:annotation-driven />
 
-	<!-- CORS 설정: 외부 도메인에서의 API 호출 허용 (옵션) -->
-	<!-- <mvc:cors>
-        <mvc:mapping path="/api/**" allowed-origins="http://localhost:8501" />
-    </mvc:cors> -->
+	<!-- CORS 설정: 외부 도메인에서의 API 호출 허용 -->
+	<mvc:cors>
+		<mvc:mapping path="/api/**" allowed-origins="http://localhost:8501" />
+	</mvc:cors>
 
 	<!-- 컨트롤러에서 선택된 뷰를 /WEB-INF/views 디렉토리의 .jsp 리소스로 해석 -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -37,9 +41,6 @@
 		<beans:property name="defaultErrorView" value="error/default"/>
 	</beans:bean>
 
-<!--	<mvc:cors>-->
-<!--		<mvc:mapping path="/api/**" allowed-origins="http://localhost:8080" />-->
-<!--	</mvc:cors>-->
 	<!-- 로그인 인터셉터 설정 (필요시 활성화) -->
 	<!--
     <interceptors>

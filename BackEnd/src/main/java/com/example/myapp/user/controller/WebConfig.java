@@ -2,7 +2,6 @@ package com.example.myapp.user.controller;
 
 import com.example.myapp.filter.LoginInterceptor;
 import com.example.myapp.filter.UrlDecodeFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -109,14 +108,5 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public MessageCodesResolver getMessageCodesResolver() {
         return null;
-    }
-
-    // URL 디코딩 필터를 등록하는 Bean 추가
-    @Bean
-    public FilterRegistrationBean<UrlDecodeFilter> urlDecodeFilter() {
-        FilterRegistrationBean<UrlDecodeFilter> registrationBean = new FilterRegistrationBean<>();
-        registrationBean.setFilter(new UrlDecodeFilter());
-        registrationBean.addUrlPatterns("/*"); // 모든 URL 패턴에 대해 필터를 적용
-        return registrationBean;
     }
 }

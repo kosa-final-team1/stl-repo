@@ -23,6 +23,7 @@ public class User {
     private int age;
     @NotNull(message = "Style must be selected.")
     private String styleNo;
+    private String styleName;
 
     public String getStyleNo() {
         return styleNo;

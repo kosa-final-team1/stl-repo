@@ -58,5 +58,4 @@
     <delete id="deleteUser" parameterType="String">
         DELETE FROM USER WHERE user_id = #{userId}
     </delete>
-
 </mapper>
