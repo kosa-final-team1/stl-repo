@@ -7,14 +7,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleSync - 회원가입</title>
+    <title>셋 더 룩스 - 회원가입</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/signup.css?v=1.0">
 </head>
 <body>
 <header>
     <div class="container">
-        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">StyleSync</div>
+        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">셋 더 룩스</div>
     </div>
 </header>
 
@@ -22,16 +22,22 @@
     <div class="container">
         <form:form modelAttribute="user" action="${pageContext.request.contextPath}/user/signup" method="post" class="signup-form">
             <h2 class="form-title">회원가입</h2>
+
+            <!-- 아이디 입력 필드 -->
             <div class="form-group">
-                <label for="userId">아이디</label>
+                <label for="userId">아이디 <span class="form-text">| 아이디는 5자에서 15자 내로 설정해주세요.</span></label>
                 <form:input path="userId" id="userId" required="required"/>
                 <form:errors path="userId" cssClass="error"/>
             </div>
+
+            <!-- 비밀번호 입력 필드 -->
             <div class="form-group">
-                <label for="userPw">비밀번호</label>
+                <label for="userPw">비밀번호 <span class="form-text">| 비밀번호는 8자에서 15자 내로 설정해주세요.</span></label>
                 <form:password path="userPw" id="userPw" required="required"/>
                 <form:errors path="userPw" cssClass="error"/>
             </div>
+
+            <!-- 성별 선택 필드 -->
             <div class="form-group">
                 <label for="gender">성별</label>
                 <form:select path="gender" id="gender" required="required">
@@ -41,27 +47,31 @@
                 </form:select>
                 <form:errors path="gender" cssClass="error"/>
             </div>
+
+            <!-- 나이 입력 필드 -->
             <div class="form-group">
                 <label for="age">나이</label>
                 <form:input path="age" id="age" type="number" required="required" min="1" max="120"/>
-                <form:errors path="age" cssClass="error"/>
             </div>
+
+            <!-- 선호 패션 타입 선택 필드 -->
             <div class="form-group">
-                <label>선호 패션 타입 | 복수 선택 가능</label>
+                <label>선호 패션 타입 <span class="form-text">| 최대 3가지의 패션 타입을 선택할 수 있습니다.</span></label>
                 <div class="fashion-types">
-                    <button type="button" class="fashion-type-btn" data-value="1" <c:if test="${fn:contains(user.styleNo, '1')}">class="selected"</c:if>>걸리쉬</button>
-                    <button type="button" class="fashion-type-btn" data-value="2" <c:if test="${fn:contains(user.styleNo, '2')}">class="selected"</c:if>>고프코어</button>
-                    <button type="button" class="fashion-type-btn" data-value="3" <c:if test="${fn:contains(user.styleNo, '3')}">class="selected"</c:if>>레트로</button>
-                    <button type="button" class="fashion-type-btn" data-value="4" <c:if test="${fn:contains(user.styleNo, '4')}">class="selected"</c:if>>미니멀</button>
-                    <button type="button" class="fashion-type-btn" data-value="5" <c:if test="${fn:contains(user.styleNo, '5')}">class="selected"</c:if>>비즈니스캐주얼</button>
-                    <button type="button" class="fashion-type-btn" data-value="6" <c:if test="${fn:contains(user.styleNo, '6')}">class="selected"</c:if>>스트릿</button>
-                    <button type="button" class="fashion-type-btn" data-value="7" <c:if test="${fn:contains(user.styleNo, '7')}">class="selected"</c:if>>스포티</button>
-                    <button type="button" class="fashion-type-btn" data-value="8" <c:if test="${fn:contains(user.styleNo, '8')}">class="selected"</c:if>>시크</button>
-                    <button type="button" class="fashion-type-btn" data-value="9" <c:if test="${fn:contains(user.styleNo, '9')}">class="selected"</c:if>>아메카지</button>
-                    <button type="button" class="fashion-type-btn" data-value="10" <c:if test="${fn:contains(user.styleNo, '10')}">class="selected"</c:if>>캐주얼</button>
+                    <button type="button" class="fashion-type-btn" data-value="1">걸리쉬</button>
+                    <button type="button" class="fashion-type-btn" data-value="2">고프코어</button>
+                    <button type="button" class="fashion-type-btn" data-value="3">레트로</button>
+                    <button type="button" class="fashion-type-btn" data-value="4">미니멀</button>
+                    <button type="button" class="fashion-type-btn" data-value="5">비즈니스캐주얼</button>
+                    <button type="button" class="fashion-type-btn" data-value="6">스트릿</button>
+                    <button type="button" class="fashion-type-btn" data-value="7">스포티</button>
+                    <button type="button" class="fashion-type-btn" data-value="8">시크</button>
+                    <button type="button" class="fashion-type-btn" data-value="9">아메카지</button>
+                    <button type="button" class="fashion-type-btn" data-value="10">캐주얼</button>
                 </div>
                 <form:errors path="styleNo" cssClass="error"/>
             </div>
+
             <!-- 선택된 스타일 값을 저장할 숨겨진 입력 필드 -->
             <input type="hidden" id="styleNo" name="styleNo" />
             <button type="submit" class="submit-btn">가입하기</button>
@@ -69,23 +79,83 @@
     </div>
 </main>
 
+<!-- 모달 -->
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>회원가입 완료</h2>
+        <p>회원가입이 성공적으로 완료되었습니다. <br>환영합니다!</p>
+        <button id="modalCloseBtn">닫기</button>
+    </div>
+</div>
+
 <script>
     document.querySelectorAll('.fashion-type-btn').forEach(button => {
         button.addEventListener('click', function() {
-            this.classList.toggle('selected');
-            updateSelectedStyles();  // 선택된 스타일 값 업데이트
+            if (this.classList.contains('selected')) {
+                this.classList.remove('selected');
+            } else {
+                const selectedCount = document.querySelectorAll('.fashion-type-btn.selected').length;
+                if (selectedCount < 3) {
+                    this.classList.add('selected');
+                } else {
+                    alert("최대 3가지의 패션 타입만 선택할 수 있습니다.");
+                }
+            }
+            updateSelectedStyles();
         });
     });
 
-    // 선택된 스타일을 업데이트하여 숨겨진 필드에 설정
     function updateSelectedStyles() {
         const selectedStyles = Array.from(document.querySelectorAll('.fashion-type-btn.selected'))
-            .map(button => button.getAttribute('data-value'));
+            .map(btn => btn.getAttribute('data-value'));
         document.getElementById('styleNo').value = selectedStyles.join(',');
     }
 
-    // 페이지 로드 시, 초기 선택된 스타일들을 hidden 필드에 설정
     updateSelectedStyles();
+
+    var modal = document.getElementById("signupModal");
+    var closeBtn = document.querySelector(".close");
+    var redirectButton = document.getElementById("modalCloseBtn");
+
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+        window.location.href = "${pageContext.request.contextPath}/user/login";
+    }
+
+    closeBtn.onclick = function() {
+        closeModal();
+    }
+
+    redirectButton.onclick = function() {
+        closeModal();
+    }
+
+    // 회원가입 완료 후 모달
+    document.querySelector('.signup-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        fetch("${pageContext.request.contextPath}/user/signup", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(new FormData(this))
+        }).then(response => {
+            if (response.ok) {
+                openModal();
+            } else {
+                alert("회원가입 처리 중 오류가 발생했습니다.");
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert("회원가입 처리 중 오류가 발생했습니다.");
+        });
+    });
 </script>
 </body>
 </html>

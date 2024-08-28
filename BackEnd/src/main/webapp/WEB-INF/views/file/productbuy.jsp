@@ -5,14 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleSync - 상품 구매</title>
+    <title>셋 더 룩스 - 상품 구매</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/productbuy.css">
 </head>
 <body>
 <header>
     <div class="container">
-        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">StyleSync</div>
+        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">셋 더 룩스</div>
         <nav>
             <ul>
                 <li><a href="${pageContext.request.contextPath}/">홈</a></li>

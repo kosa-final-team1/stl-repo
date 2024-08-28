@@ -8,30 +8,116 @@
     <!-- 랜덤으로 코디 목록을 가져오는 쿼리 -->
     <select id="getRandomOutfits" resultType="com.example.myapp.outfit.model.Outfit">
         SELECT
-            outfit_url AS outfitUrl,
-            style_idx AS styleIdx,
-            style_url AS styleUrl,
-            outfit_info AS outfitInfo,
-            style_tags AS styleTags,
-            weather_no AS weatherNo,
-            style_no AS styleNo
-        FROM OUTFIT
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName  <!-- 조인으로 스타일 이름 가져오기 -->
+        FROM OUTFIT o
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
         ORDER BY RAND()
-            LIMIT 10
+        LIMIT 10
+    </select>
+
+    <!-- [0825 김제이 추가]
+         *기능설명: 로그인 사용 styleNo split 후 조회쿼리
+         *참고사항: 섹션별로 분리하고 싶을 경우 쿼리 수정 필요, 보류 상태 -->
+    <select id="getRecommandOutfits" parameterType="map" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT DISTINCT
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName  <!-- 조인으로 스타일 이름 가져오기 -->
+        FROM OUTFIT o
+        INNER JOIN PRODUCT p ON p.outfit_url = o.outfit_url
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
+        WHERE 1=1
+        <if test="firstValue != null">
+            AND o.style_no = #{firstValue}
+        </if>
+        <if test="secondValue != null">
+            OR o.style_no = #{secondValue}
+        </if>
+        <if test="thirdValue != null">
+            OR o.style_no = #{thirdValue}
+        </if>
+        LIMIT 10
+    </select>
+
+    <!-- [수정] 스타일 넘버별로 코디 목록을 가져오는 쿼리 추가 -->
+    <select id="getOutfitsByStyleNo" parameterType="string" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT DISTINCT
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName  <!-- 조인으로 스타일 이름 가져오기 -->
+        FROM OUTFIT o
+        INNER JOIN PRODUCT p ON p.outfit_url = o.outfit_url
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
+        WHERE o.style_no = #{styleNo}
+        LIMIT 10
     </select>
 
     <!-- 특정 코디의 세부 정보를 가져오는 쿼리 -->
     <select id="getOutfitDetails" parameterType="map" resultType="com.example.myapp.outfit.model.Outfit">
         SELECT
-            outfit_url AS outfitUrl,
-            style_idx AS styleIdx,
-            style_url AS styleUrl,
-            outfit_info AS outfitInfo,
-            style_tags AS styleTags,
-            weather_no AS weatherNo,
-            style_no AS styleNo
-        FROM OUTFIT
-        WHERE weather_no = #{weatherNo} AND style_no = #{styleNo} AND style_idx = #{styleIdx}
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName  <!-- 조인으로 스타일 이름 가져오기 -->
+        FROM OUTFIT o
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
+        WHERE o.weather_no = #{weatherNo} AND o.style_no = #{styleNo} AND o.style_idx = #{styleIdx}
     </select>
 
+    <!-- [신규 추가] 스타일 이름으로 코디 목록을 가져오는 쿼리 -->
+    <select id="getOutfitsByStyleName" parameterType="string" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT DISTINCT
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName  <!-- 조인으로 스타일 이름 가져오기 -->
+        FROM OUTFIT o
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
+        WHERE sc.style_name = #{styleName}
+        LIMIT 10
+    </select>
+
+    <!-- 성별과 스타일 번호로 코디 목록을 가져오는 쿼리 -->
+    <select id="getOutfitsByStyleNoAndGender" parameterType="map" resultType="com.example.myapp.outfit.model.Outfit">
+        SELECT DISTINCT
+        o.outfit_url AS outfitUrl,
+        o.style_idx AS styleIdx,
+        o.style_url AS styleUrl,
+        o.outfit_info AS outfitInfo,
+        o.style_tags AS styleTags,
+        o.weather_no AS weatherNo,
+        o.style_no AS styleNo,
+        sc.style_name AS styleName,
+        o.gender AS gender
+        FROM OUTFIT o
+        INNER JOIN STYLE_CATEGORY sc ON o.style_no = sc.style_no
+        WHERE o.style_no = #{styleNo}
+        AND o.gender = #{gender}
+        LIMIT 10
+    </select>
 </mapper>

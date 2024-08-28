@@ -1,14 +1,13 @@
 package com.example.myapp.user.controller;
 
-import com.example.myapp.util.UserDataSend;
 import com.example.myapp.user.model.User;
 import com.example.myapp.user.service.IUserService;
+import com.example.myapp.util.UserDataSend;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -128,16 +127,18 @@ public class UserController {
                         logger.info(">>> 기존 세션 userId: " + session.getAttribute("userId"));
                         logger.info(">>> 기존 세션 userPw: " + session.getAttribute("userPw"));
 
-                        session.setAttribute("userNo", userInfo.getUserNo());
+                        session.setAttribute("userNo", String.valueOf(userInfo.getUserNo())); // userNo를 String으로 변환하여 저장
                         session.setAttribute("userId", userId);
                         session.setAttribute("userPw", userPw); // 세션에 비밀번호 저장
+                        session.setAttribute("styleNo", userInfo.getStyleNo()); // styleNo 세션에 저장
+                        session.setAttribute("gender", userInfo.getGender());  // gender 세션에 저장
+                        session.setAttribute("age", String.valueOf(userInfo.getAge()));  // age를 String으로 변환하여 세션에 저장
 
                         // 저장된 후의 값 로그로 확인
                         logger.info(">>> 새로운 세션 userId: " + session.getAttribute("userId"));
                         logger.info(">>> 새로운 세션 userPw: " + session.getAttribute("userPw"));
 
                         // 로그인 성공 후 홈 페이지로 리다이렉트
-                        // 스트림릿 서버로 사용자 정보 전송
                         sendUserInfoToStreamlit(session);
                         return "redirect:/";
                     } else {
@@ -183,10 +184,11 @@ public class UserController {
         }
 
         User user = userService.getUser(sessionUserId, (String) session.getAttribute("userPw"));
-        // 유효한 사용자 정보인지 확인
         if (user != null) {
+            logger.info("User styleNo: " + user.getStyleNo()); // 서버에서 styleNo 확인
             model.addAttribute("user", user);
             return "mypage";
+
         } else {
             logger.info(">>>> 세션에 저장된 사용자 정보가 유효하지 않음");
             session.invalidate(); // 유효하지 않은 세션 정보를 초기화
@@ -198,10 +200,24 @@ public class UserController {
     @PostMapping("/user/update")
     public String updateUser(@ModelAttribute User user, HttpSession session, RedirectAttributes redirectAttributes) {
         try {
-            String sessionUserId = (String) session.getAttribute("userId"); // 세션에서 userId 가져오기
+            String sessionUserId = (String) session.getAttribute("userId");
             if (sessionUserId != null) {
-                user.setUserId(sessionUserId); // 세션의 userId로 설정
+                user.setUserId(sessionUserId);
+
+                // 로그 추가
+                logger.info("Updating user: " + user);
+
+                // 비밀번호가 입력되지 않았다면 현재 비밀번호 유지
+                User currentUser = userService.getUser(sessionUserId, (String) session.getAttribute("userPw"));
+                if (user.getUserPw() == null || user.getUserPw().isEmpty()) {
+                    user.setUserPw(currentUser.getUserPw());
+                } else {
+                    session.setAttribute("userPw", user.getUserPw()); // 새로운 비밀번호 세션에 저장
+                }
+
                 boolean isUpdateSuccessful = userService.updateUser(user);
+                logger.info("Update success: " + isUpdateSuccessful);
+
                 if (isUpdateSuccessful) {
                     redirectAttributes.addFlashAttribute("message", "정보가 성공적으로 업데이트되었습니다.");
                     return "redirect:/user/mypage";
@@ -231,7 +247,7 @@ public class UserController {
             if (isDeleteSuccessful) {
                 session.invalidate();
                 redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
-                return "redirect:/user/login";
+                return "redirect:/";
             } else {
                 redirectAttributes.addFlashAttribute("message", "회원 탈퇴에 실패했습니다.");
                 return "redirect:/user/mypage";
@@ -265,4 +281,5 @@ public class UserController {
         Map<String, String> userInfo = getUserInfoFromSession(session);
         UserDataSend.sendUserData(userInfo);
     }
+
 }

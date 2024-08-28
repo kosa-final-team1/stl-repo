@@ -22,7 +22,15 @@ public class UserService implements IUserService {
         params.put("userPw", userPw);
         return userRepository.getUser(params);
     }
+    
 
+    @Override
+    public User getUserStyleNo(String userId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId);
+        return userRepository.getUserStyleNo(params);
+    }
+    
     @Override
     @Transactional
     public boolean signUpUser(User user) {

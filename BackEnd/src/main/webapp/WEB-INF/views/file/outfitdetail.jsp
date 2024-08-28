@@ -6,14 +6,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleSync - 코디 상세</title>
+    <title>셋 더 룩스 - 코디 상세</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/outfitdetail.css?v=1.0">
 </head>
 <body>
 <header>
     <div class="container">
-        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">StyleSync</div>
+        <div class="logo" onclick="location.href='${pageContext.request.contextPath}/';">셋 더 룩스</div>
         <nav>
             <ul>
                 <li><a href="${pageContext.request.contextPath}/">홈</a></li>
@@ -62,7 +62,6 @@
 
 <script>
     function redirectToProductPage(productUrl, productName, productBrand, productPrice) {
-        // 모든 특수 문자를 포함한 문자열을 안전하게 인코딩
         var encodedProductUrl = encodeURIComponent(productUrl);
         var encodedProductName = encodeURIComponent(productName);
         var encodedProductBrand = encodeURIComponent(productBrand);

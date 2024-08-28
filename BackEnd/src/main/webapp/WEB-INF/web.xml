@@ -25,6 +25,8 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
+
+
 	<!-- 모든 요청을 DispatcherServlet으로 매핑 -->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
