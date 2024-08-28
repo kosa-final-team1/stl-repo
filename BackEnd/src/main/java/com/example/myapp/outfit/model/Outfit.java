@@ -13,4 +13,6 @@ public class Outfit {
     private String styleTags;
     private String weatherNo;
     private String styleNo;
+    private String styleName;
+    private String gender;
 }

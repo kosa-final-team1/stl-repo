@@ -10,4 +10,6 @@ public interface IUserService {
     boolean updateUser(User user);
     boolean deleteUser(String userId);
     boolean updatePassword(String userId, String currentPassword, String newPassword);
+	User getUserStyleNo(String userId);
+	
 }

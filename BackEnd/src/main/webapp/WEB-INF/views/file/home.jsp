@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StyleSync - 당신만의 패션 큐레이터</title>
+    <title>셋 더 룩스 - 당신만의 패션 큐레이터</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/home.css">
 </head>
@@ -13,7 +13,7 @@
 <header>
     <div class="container">
         <nav>
-            <div class="logo" >StyleSync</div>
+            <div class="logo">셋 더 룩스</div>
             <ul>
                 <c:choose>
                     <c:when test="${not empty sessionScope.userId}">
@@ -21,10 +21,6 @@
                         <li><a href="${pageContext.request.contextPath}/user/mypage">마이페이지</a></li>
                     </c:when>
                 </c:choose>
-                <li><a href="${pageContext.request.contextPath}/">홈</a></li>
-                <li><a href="#features">기능</a></li>
-                <li><a href="#contact">문의</a></li>
-
             </ul>
         </nav>
     </div>
@@ -47,41 +43,72 @@
         </div>
     </section>
 
-    <section id="outfit-section">
-        <h2 class="section-title">StyleSync가 추천하는 코디</h2>
-        <div class="outfit-grid">
-            <c:forEach var="outfit" items="${outfits}">
-                <div class="outfit-item">
-                    <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
-                        <img src="${outfit.outfitUrl}" alt="Outfit Image">
-                    </a>
-                </div>
-            </c:forEach>
-        </div>
-    </section>
+    <c:choose>
+        <c:when test="${not empty sessionScope.userId}">
+            <!-- 첫 번째 스타일 섹션 -->
+            <c:if test="${not empty firstStyleOutfits}">
+                <section id="outfit-section-1">
+                    <h2 class="section-title">셋 더 룩스가 추천하는 코디 - ${firstStyleName}</h2>
+                    <div class="outfit-grid">
+                        <c:forEach var="outfit" items="${firstStyleOutfits}">
+                            <div class="outfit-item">
+                                <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
+                                    <img src="${outfit.outfitUrl}" alt="Outfit Image">
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </section>
+            </c:if>
 
-    <section id="features" class="section">
-        <div class="container">
-            <h2 class="section-title">StyleSync의 특별한 기능</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
-                    <h3 class="feature-title">코디 추천</h3>
-                    <p>당신의 취향을 분석하여 최적의 코디를 추천해드립니다.</p>
+            <!-- 두 번째 스타일 섹션 -->
+            <c:if test="${not empty secondStyleOutfits}">
+                <section id="outfit-section-2">
+                    <h2 class="section-title">셋 더 룩스가 추천하는 코디 - ${secondStyleName}</h2>
+                    <div class="outfit-grid">
+                        <c:forEach var="outfit" items="${secondStyleOutfits}">
+                            <div class="outfit-item">
+                                <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
+                                    <img src="${outfit.outfitUrl}" alt="Outfit Image">
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </section>
+            </c:if>
+
+            <!-- 세 번째 스타일 섹션 -->
+            <c:if test="${not empty thirdStyleOutfits}">
+                <section id="outfit-section-3">
+                    <h2 class="section-title">셋 더 룩스가 추천하는 코디 - ${thirdStyleName}</h2>
+                    <div class="outfit-grid">
+                        <c:forEach var="outfit" items="${thirdStyleOutfits}">
+                            <div class="outfit-item">
+                                <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
+                                    <img src="${outfit.outfitUrl}" alt="Outfit Image">
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </section>
+            </c:if>
+        </c:when>
+        <c:otherwise>
+            <!-- 로그인되지 않은 경우 랜덤 추천 -->
+            <section id="outfit-section">
+                <h2 class="section-title">셋 더 룩스가 추천하는 코디</h2>
+                <div class="outfit-grid">
+                    <c:forEach var="outfit" items="${outfits}">
+                        <div class="outfit-item">
+                            <a href="${pageContext.request.contextPath}/outfitdetail?weatherNo=${outfit.weatherNo}&styleNo=${outfit.styleNo}&styleIdx=${outfit.styleIdx}">
+                                <img src="${outfit.outfitUrl}" alt="Outfit Image">
+                            </a>
+                        </div>
+                    </c:forEach>
                 </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3 class="feature-title">실시간 트렌드 분석</h3>
-                    <p>글로벌 패션 트렌드를 분석하여 알맞는 스타일을 제안합니다.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛍️</div>
-                    <h3 class="feature-title">스마트 쇼핑</h3>
-                    <p>추천 아이템을 바로 구매할 수 있는 편리한 쇼핑 경험을 제공합니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
+        </c:otherwise>
+    </c:choose>
 </main>
 
 <footer>
